@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Pricing Tracker - Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+<body class="dashboard-page">
+    <!-- Enhanced Header -->
+    <header class="header" role="banner">
+        <div class="header-content">
+            <h1>📊 Pricing Tracker Pro</h1>
+            <div class="header-actions">
+                <span id="welcomeUser" class="welcome-text" aria-live="polite"></span>
+                <button id="logoutBtn" class="btn btn-secondary" aria-label="Logout">
+                    <span>👋</span> Logout
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Enhanced Dashboard Summary Panel -->
+    <section class="dashboard-summary" role="region" aria-labelledby="dashboard-heading">
+        <div class="summary-cards">
+            <div class="summary-card" role="article">
+                <div class="card-icon" aria-hidden="true">📦</div>
+                <div class="card-content">
+                    <h3 id="totalProducts" aria-label="Total products">0</h3>
+                    <p>Total Products</p>
+                </div>
+            </div>
+            <div class="summary-card" role="article">
+                <div class="card-icon" aria-hidden="true">💰</div>
+                <div class="card-content">
+                    <h3 id="totalInvestment" aria-label="Total investment">GHS 0.00</h3>
+                    <p>Total Investment</p>
+                </div>
+            </div>
+            <div class="summary-card" role="article">
+                <div class="card-icon" aria-hidden="true">📈</div>
+                <div class="card-content">
+                    <h3 id="totalProfit" aria-label="Total potential profit">GHS 0.00</h3>
+                    <p>Potential Profit</p>
+                </div>
+            </div>
+            <div class="summary-card" role="article">
+                <div class="card-icon" aria-hidden="true">✅</div>
+                <div class="card-content">
+                    <h3 id="activeProducts" aria-label="Active products">0</h3>
+                    <p>Active Products</p>
+                </div>
+            </div>
+        </div>
+        <div class="summary-message">
+            <p id="summaryText" aria-live="polite">Loading dashboard data...</p>
+        </div>
+    </section>
+
+    <!-- Enhanced Main Content -->
+    <main class="main-content" role="main">
+        <!-- Enhanced Controls Section -->
+        <section class="controls-section" role="region" aria-labelledby="controls-heading">
+            <div class="controls-header">
+                <h2 id="controls-heading">Product Management</h2>
+                <div class="header-buttons">
+                    <button id="addProductBtn" class="btn btn-primary" aria-label="Add new product">
+                        <span>➕</span> Add Product
+                    </button>
+                    <button id="addVendorBtn" class="btn btn-secondary" aria-label="Manage vendors">
+                        <span>🏪</span> Manage Vendors
+                    </button>
+                    <button id="salesHistoryBtn" class="btn btn-info" aria-label="View sales history">
+                        <span>📊</span> Sales History
+                    </button>
+                    <button id="backupRestoreBtn" class="btn btn-warning" aria-label="Backup and restore data">
+                        <span>💾</span> Backup/Restore
+                    </button>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+                            <span>📥</span> Import/Export
+                        </button>
+                        <div class="dropdown-content" role="menu">
+                            <a href="#" id="exportBtn" role="menuitem">
+                                <span>📤</span> Export CSV
+                            </a>
+                            <a href="#" id="importBtn" role="menuitem">
+                                <span>📥</span> Import CSV
+                            </a>
+                            <a href="#" id="templateBtn" role="menuitem">
+                                <span>📋</span> Download Template
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Enhanced Filters -->
+            <div class="filters-container" role="search" aria-label="Product filters">
+                <div class="filter-row">
+                    <div class="search-container">
+                        <input type="text" id="searchInput" placeholder="Search products..." 
+                               class="search-input" aria-label="Search products">
+                    </div>
+                    <select id="vendorFilter" class="filter-select" aria-label="Filter by vendor">
+                        <option value="">All Vendors</option>
+                    </select>
+                    <select id="statusFilter" class="filter-select" aria-label="Filter by status">
+                        <option value="">All Status</option>
+                        <option value="active">Active</option>
+                        <option value="sold">Sold</option>
+                        <option value="discontinued">Discontinued</option>
+                    </select>
+                    <select id="sortSelect" class="sort-select" aria-label="Sort products">
+                        <option value="date_added_desc">Newest First</option>
+                        <option value="date_added_asc">Oldest First</option>
+                        <option value="product_name_asc">Name A-Z</option>
+                        <option value="product_name_desc">Name Z-A</option>
+                        <option value="total_profit_desc">Highest Profit</option>
+                        <option value="total_profit_asc">Lowest Profit</option>
+                    </select>
+                </div>
+                
+                <div class="filter-row">
+                    <div class="price-range">
+                        <label>Price Range:</label>
+                        <input type="number" id="minPrice" placeholder="Min" class="range-input" 
+                               aria-label="Minimum price">
+                        <span>-</span>
+                        <input type="number" id="maxPrice" placeholder="Max" class="range-input" 
+                               aria-label="Maximum price">
+                    </div>
+                    <div class="profit-range">
+                        <label>Profit Range:</label>
+                        <input type="number" id="minProfit" placeholder="Min" class="range-input" 
+                               aria-label="Minimum profit">
+                        <span>-</span>
+                        <input type="number" id="maxProfit" placeholder="Max" class="range-input" 
+                               aria-label="Maximum profit">
+                    </div>
+                    <div class="date-range">
+                        <label>Date Range:</label>
+                        <input type="date" id="dateFrom" class="date-input" aria-label="From date">
+                        <span>-</span>
+                        <input type="date" id="dateTo" class="date-input" aria-label="To date">
+                    </div>
+                    <button id="clearFilters" class="btn btn-secondary btn-small" aria-label="Clear all filters">
+                        Clear Filters
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Enhanced Products Table -->
+        <section class="table-section" role="region" aria-labelledby="products-heading">
+            <div class="table-container">
+                <table id="productsTable" class="products-table" role="table" aria-label="Products list">
+                    <thead>
+                        <tr role="row">
+                            <th scope="col">Image</th>
+                            <th scope="col">Product Name</th>
+                            <th scope="col">Vendor</th>
+                            <th scope="col">Actual Price</th>
+                            <th scope="col">Markup %</th>
+                            <th scope="col">Selling Price</th>
+                            <th scope="col">Qty</th>
+                            <th scope="col">Total Profit</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Date Added</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productsTableBody" role="rowgroup">
+                        <!-- Products will be loaded here -->
+                    </tbody>
+                </table>
+                
+                <div id="emptyState" class="empty-state hidden" role="status">
+                    <h3>No Products Found</h3>
+                    <p>Start by adding your first product to track pricing and profits.</p>
+                    <button class="btn btn-primary" onclick="document.getElementById('addProductBtn').click()">
+                        <span>➕</span> Add Your First Product
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Enhanced Product Modal -->
+    <div id="productModal" class="modal hidden" role="dialog" aria-labelledby="modalTitle" aria-modal="true">
+        <div class="modal-content large-modal">
+            <div class="modal-header">
+                <h3 id="modalTitle">Add New Product</h3>
+                <button id="closeModal" class="close-btn" aria-label="Close modal">&times;</button>
+            </div>
+            
+            <form id="productForm" class="product-form">
+                <input type="hidden" id="productId" name="id">
+                
+                <div class="form-section">
+                    <h4>📋 Basic Information</h4>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="productName">Product Name *</label>
+                            <input type="text" id="productName" name="product_name" required 
+                                   aria-describedby="productName-help">
+                            <small id="productName-help">Enter a descriptive product name</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="vendorSelect">Vendor</label>
+                            <select id="vendorSelect" name="vendor_id" aria-describedby="vendor-help">
+                                <option value="">Select Vendor</option>
+                            </select>
+                            <small id="vendor-help">Choose a vendor or leave blank</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h4>💰 Pricing & Stock</h4>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="actualPrice">Actual Price (GHS) *</label>
+                            <input type="number" id="actualPrice" name="actual_price" step="0.01" min="0" required
+                                   aria-describedby="actualPrice-help">
+                            <small id="actualPrice-help">Your cost price for this product</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="markupPercentage">Markup (%) *</label>
+                            <div class="markup-container">
+                                <input type="number" id="markupPercentage" name="markup_percentage" 
+                                       step="0.01" min="0" required aria-describedby="markup-help">
+                                <div class="markup-presets" role="group" aria-label="Quick markup presets">
+                                    <button type="button" class="preset-btn" data-markup="10" aria-label="Set 10% markup">10%</button>
+                                    <button type="button" class="preset-btn" data-markup="25" aria-label="Set 25% markup">25%</button>
+                                    <button type="button" class="preset-btn" data-markup="50" aria-label="Set 50% markup">50%</button>
+                                    <button type="button" class="preset-btn" data-markup="100" aria-label="Set 100% markup">100%</button>
+                                </div>
+                            </div>
+                            <small id="markup-help">Percentage markup on cost price</small>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="quantity">Quantity *</label>
+                            <input type="number" id="quantity" name="quantity" min="1" value="1" required
+                                   aria-describedby="quantity-help">
+                            <small id="quantity-help">Number of units in stock</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="status">Status</label>
+                            <select id="status" name="status" aria-describedby="status-help">
+                                <option value="active">Active</option>
+                                <option value="sold">Sold</option>
+                                <option value="discontinued">Discontinued</option>
+                            </select>
+                            <small id="status-help">Current product status</small>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="sellingPrice">Selling Price (GHS)</label>
+                            <input type="number" id="sellingPrice" name="selling_price" step="0.01" readonly
+                                   aria-describedby="sellingPrice-help">
+                            <small id="sellingPrice-help">Automatically calculated from cost + markup</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="totalProfit">Total Profit (GHS)</label>
+                            <input type="number" id="totalProfit" name="total_profit" step="0.01" readonly
+                                   aria-describedby="totalProfit-help">
+                            <small id="totalProfit-help">Total profit for all units</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h4>📝 Additional Information</h4>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="productUrl">Product URL</label>
+                            <input type="url" id="productUrl" name="product_url" 
+                                   placeholder="https://example.com/product"
+                                   aria-describedby="productUrl-help">
+                            <small id="productUrl-help">Link to product page or listing</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="dateAdded">Date Added</label>
+                            <input type="date" id="dateAdded" name="date_added"
+                                   aria-describedby="dateAdded-help">
+                            <small id="dateAdded-help">When you acquired this product</small>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="productImage">Product Image URL</label>
+                        <div class="image-input-container">
+                            <input type="url" id="productImage" name="product_image" 
+                                   placeholder="https://example.com/image.jpg"
+                                   aria-describedby="productImage-help">
+                            <button type="button" id="uploadImageBtn" class="btn btn-small btn-secondary"
+                                    aria-label="Upload image file">
+                                <span>📤</span> Upload
+                            </button>
+                        </div>
+                        <small id="productImage-help">URL to product image or upload a file</small>
+                        <div id="currentImagePreview" class="current-image-preview"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="notes">Notes/Remarks</label>
+                        <textarea id="notes" name="notes" rows="3" 
+                                  placeholder="Add any notes about this product..."
+                                  aria-describedby="notes-help"></textarea>
+                        <small id="notes-help">Optional notes or description</small>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" id="cancelBtn" class="btn btn-secondary">Cancel</button>
+                    <button type="submit" class="btn btn-primary">
+                        <span>💾</span> Save Product
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Enhanced Vendor Management Modal -->
+    <div id="vendorModal" class="modal hidden" role="dialog" aria-labelledby="vendorModalTitle" aria-modal="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="vendorModalTitle">🏪 Manage Vendors</h3>
+                <button id="closeVendorModal" class="close-btn" aria-label="Close vendor modal">&times;</button>
+            </div>
+            
+            <div class="vendor-management">
+                <form id="vendorForm" class="vendor-form">
+                    <input type="hidden" id="vendorId">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="vendorName">Vendor Name *</label>
+                            <input type="text" id="vendorName" required aria-describedby="vendorName-help">
+                            <small id="vendorName-help">Enter vendor or supplier name</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactInfo">Contact Info</label>
+                            <input type="text" id="contactInfo" placeholder="Phone, email, etc."
+                                   aria-describedby="contactInfo-help">
+                            <small id="contactInfo-help">Optional contact information</small>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <span>💾</span> Save Vendor
+                    </button>
+                </form>
+                
+                <div class="vendors-list">
+                    <h4>Existing Vendors</h4>
+                    <div id="vendorsList" role="list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enhanced Import Modal -->
+    <div id="importModal" class="modal hidden" role="dialog" aria-labelledby="importModalTitle" aria-modal="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="importModalTitle">📥 Import Products from CSV</h3>
+                <button id="closeImportModal" class="close-btn" aria-label="Close import modal">&times;</button>
+            </div>
+            
+            <div class="import-content">
+                <div class="import-instructions">
+                    <h4>📋 Instructions:</h4>
+                    <ol>
+                        <li>Download the CSV template first</li>
+                        <li>Fill in your product data</li>
+                        <li>Upload the completed CSV file</li>
+                    </ol>
+                </div>
+                
+                <form id="importForm" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="csvFile">Select CSV File</label>
+                        <input type="file" id="csvFile" name="csv_file" accept=".csv" required
+                               aria-describedby="csvFile-help">
+                        <small id="csvFile-help">Choose a CSV file to import</small>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" id="downloadTemplate" class="btn btn-secondary">
+                            <span>📋</span> Download Template
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <span>📥</span> Import Products
+                        </button>
+                    </div>
+                </form>
+                
+                <div id="importResults" class="import-results hidden" role="status" aria-live="polite"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enhanced Sales Tracking Modal -->
+    <div id="salesModal" class="modal hidden" role="dialog" aria-labelledby="salesModalTitle" aria-modal="true">
+        <div class="modal-content large-modal">
+            <div class="modal-header">
+                <h3 id="salesModalTitle">💰 Record Sale</h3>
+                <button id="closeSalesModal" class="close-btn" aria-label="Close sales modal">&times;</button>
+            </div>
+            
+            <form id="salesForm" class="product-form">
+                <input type="hidden" id="saleId">
+                <input type="hidden" id="saleProductId">
+                
+                <div class="form-section">
+                    <h4>📊 Sale Information</h4>
+                    <div id="productInfo" class="product-info-display"></div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="quantitySold">Quantity Sold *</label>
+                            <input type="number" id="quantitySold" min="1" required
+                                   aria-describedby="quantitySold-help">
+                            <small id="quantitySold-help">Number of units sold</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="salePrice">Sale Price per Unit (GHS) *</label>
+                            <input type="number" id="salePrice" step="0.01" min="0" required
+                                   aria-describedby="salePrice-help">
+                            <small id="salePrice-help">Actual selling price per unit</small>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="saleDate">Sale Date</label>
+                            <input type="date" id="saleDate" required aria-describedby="saleDate-help">
+                            <small id="saleDate-help">When the sale occurred</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="actualProfit">Actual Profit (GHS)</label>
+                            <input type="number" id="actualProfit" step="0.01" readonly
+                                   aria-describedby="actualProfit-help">
+                            <small id="actualProfit-help">Calculated profit from this sale</small>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="saleNotes">Sale Notes</label>
+                        <textarea id="saleNotes" rows="3" 
+                                  placeholder="Add any notes about this sale..."
+                                  aria-describedby="saleNotes-help"></textarea>
+                        <small id="saleNotes-help">Optional notes about the sale</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="updateInventory" checked>
+                            Update product inventory (reduce quantity)
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" id="cancelSaleBtn" class="btn btn-secondary">Cancel</button>
+                    <button type="submit" class="btn btn-success">
+                        <span>💰</span> Record Sale
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Enhanced Sales History Modal -->
+    <div id="salesHistoryModal" class="modal hidden" role="dialog" aria-labelledby="salesHistoryTitle" aria-modal="true">
+        <div class="modal-content large-modal">
+            <div class="modal-header">
+                <h3 id="salesHistoryTitle">📊 Sales History</h3>
+                <button id="closeSalesHistoryModal" class="close-btn" aria-label="Close sales history modal">&times;</button>
+            </div>
+            
+            <div class="sales-history-content">
+                <div class="sales-stats-summary">
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <h4 id="totalSalesCount" aria-label="Total sales count">0</h4>
+                            <p>Total Sales</p>
+                        </div>
+                        <div class="stat-item">
+                            <h4 id="totalItemsSold" aria-label="Total items sold">0</h4>
+                            <p>Items Sold</p>
+                        </div>
+                        <div class="stat-item">
+                            <h4 id="totalSalesProfit" aria-label="Total sales profit">GHS 0.00</h4>
+                            <p>Total Profit</p>
+                        </div>
+                        <div class="stat-item">
+                            <h4 id="avgProfitPerSale" aria-label="Average profit per sale">GHS 0.00</h4>
+                            <p>Avg Profit/Sale</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="sales-table-container">
+                    <table class="sales-table" role="table" aria-label="Sales history">
+                        <thead>
+                            <tr role="row">
+                                <th scope="col">Date</th>
+                                <th scope="col">Product</th>
+                                <th scope="col">Vendor</th>
+                                <th scope="col">Qty Sold</th>
+                                <th scope="col">Sale Price</th>
+                                <th scope="col">Profit</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="salesTableBody" role="rowgroup">
+                        </tbody>
+                    </table>
+                    
+                    <div id="emptySalesState" class="empty-state hidden" role="status">
+                        <h3>No Sales Recorded</h3>
+                        <p>Start recording sales to track your actual profits.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enhanced Backup/Restore Modal -->
+    <div id="backupModal" class="modal hidden" role="dialog" aria-labelledby="backupModalTitle" aria-modal="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="backupModalTitle">💾 Backup & Restore</h3>
+                <button id="closeBackupModal" class="close-btn" aria-label="Close backup modal">&times;</button>
+            </div>
+            
+            <div class="backup-content">
+                <div class="backup-section">
+                    <h4>📦 Create Backup</h4>
+                    <p>Create a complete backup of all your data including products, vendors, and sales.</p>
+                    <button id="createBackupBtn" class="btn btn-primary">
+                        <span>📦</span> Create Backup
+                    </button>
+                </div>
+                
+                <div class="backup-section">
+                    <h4>🔄 Restore from Backup</h4>
+                    <form id="restoreForm" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="backupFile">Select Backup File</label>
+                            <input type="file" id="backupFile" name="backup_file" accept=".json" required
+                                   aria-describedby="backupFile-help">
+                            <small id="backupFile-help">Choose a JSON backup file</small>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="clearExisting" name="clear_existing" value="true">
+                                Clear existing data before restore (recommended)
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-warning">
+                            <span>🔄</span> Restore Data
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="backup-section">
+                    <h4>📋 Existing Backups</h4>
+                    <div id="backupsList" class="backups-list" role="list">
+                        <p>Loading backups...</p>
+                    </div>
+                </div>
+                
+                <div id="backupResults" class="backup-results hidden" role="status" aria-live="polite"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enhanced Image Upload Modal -->
+    <div id="imageUploadModal" class="modal hidden" role="dialog" aria-labelledby="imageUploadTitle" aria-modal="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="imageUploadTitle">📤 Upload Product Image</h3>
+                <button id="closeImageUploadModal" class="close-btn" aria-label="Close image upload modal">&times;</button>
+            </div>
+            
+            <div class="image-upload-content">
+                <form id="imageUploadForm" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="productImageFile">Select Image</label>
+                        <input type="file" id="productImageFile" name="image" accept="image/*" required
+                               aria-describedby="productImageFile-help">
+                        <small id="productImageFile-help">Supported formats: JPEG, PNG, GIF, WebP. Max size: 5MB</small>
+                    </div>
+                    
+                    <div class="image-preview" id="imagePreview" style="display: none;">
+                        <img id="previewImage" alt="Image preview" style="max-width: 200px; max-height: 200px;">
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" id="cancelImageUpload" class="btn btn-secondary">Cancel</button>
+                        <button type="submit" class="btn btn-primary">
+                            <span>📤</span> Upload Image
+                        </button>
+                    </div>
+                </form>
+                
+                <div id="imageUploadResults" class="upload-results hidden" role="status" aria-live="polite"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enhanced Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay hidden" role="status" aria-live="polite">
+        <div class="loading-spinner" aria-hidden="true"></div>
+        <p>Processing...</p>
+    </div>
+
+    <!-- Enhanced Toast Notification -->
+    <div id="toast" class="toast hidden" role="alert" aria-live="assertive">
+        <span id="toastMessage"></span>
+    </div>
+
+    <script src="enhanced-script.js"></script>
+</body>
+</html>

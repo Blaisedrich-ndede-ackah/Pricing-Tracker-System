@@ -1,0 +1,56 @@
+{
+    "created_at": "2025-06-26 19:01:44",
+    "user_id": 1,
+    "data": {
+        "products": [
+            {
+                "id": 1,
+                "user_id": 1,
+                "vendor_id": 4,
+                "product_name": "KOFO",
+                "actual_price": "122.00",
+                "markup_percentage": "50.00",
+                "selling_price": "183.00",
+                "profit": "61.00",
+                "quantity": 30,
+                "total_profit": "1830.00",
+                "product_url": null,
+                "product_image": null,
+                "notes": null,
+                "date_added": "2025-06-26",
+                "status": "active",
+                "created_at": "2025-06-26 17:52:52",
+                "updated_at": "2025-06-26 17:58:08"
+            },
+            {
+                "id": 2,
+                "user_id": 1,
+                "vendor_id": 4,
+                "product_name": "KOFO",
+                "actual_price": "122.00",
+                "markup_percentage": "50.00",
+                "selling_price": "183.00",
+                "profit": "61.00",
+                "quantity": 183,
+                "total_profit": "11163.00",
+                "product_url": "1",
+                "product_image": null,
+                "notes": "61.00",
+                "date_added": "0000-00-00",
+                "status": "",
+                "created_at": "2025-06-26 17:59:25",
+                "updated_at": "2025-06-26 17:59:25"
+            }
+        ],
+        "vendors": [
+            {
+                "id": 4,
+                "user_id": 1,
+                "vendor_name": "KOFI",
+                "contact_info": "0540428231",
+                "created_at": "2025-06-26 17:52:18"
+            }
+        ],
+        "sales": []
+    }
+}

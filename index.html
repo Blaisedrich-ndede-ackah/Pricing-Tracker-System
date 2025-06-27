@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing Tracker - Login</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="login-page">
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h1>Pricing Tracker</h1>
+                <p>Sign in to manage your products</p>
+            </div>
+            
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Sign In</button>
+                
+                <div class="form-footer">
+                    <p>Don't have an account? <a href="#" id="showRegister">Register here</a></p>
+                </div>
+            </form>
+            
+            <form id="registerForm" class="login-form hidden">
+                <div class="form-group">
+                    <label for="regUsername">Username</label>
+                    <input type="text" id="regUsername" name="username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="regPassword">Password</label>
+                    <input type="password" id="regPassword" name="password" required minlength="6">
+                    <small>Password must be at least 6 characters</small>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Register</button>
+                
+                <div class="form-footer">
+                    <p>Already have an account? <a href="#" id="showLogin">Sign in here</a></p>
+                </div>
+            </form>
+            
+            <div id="message" class="message hidden"></div>
+        </div>
+    </div>
+
+    <script>
+        /**
+         * Authentication handling for login page
+         */
+        class AuthManager {
+    constructor() {
+        this.apiBase = 'api/auth.php';
+        this.init();
+    }
+
+    init() {
+        // Check if already authenticated
+        this.checkAuth();
+        
+        // Bind form events
+        document.getElementById('loginForm').addEventListener('submit', (e) => this.handleLogin(e));
+        document.getElementById('registerForm').addEventListener('submit', (e) => this.handleRegister(e));
+        document.getElementById('showRegister').addEventListener('click', (e) => this.showRegisterForm(e));
+        document.getElementById('showLogin').addEventListener('click', (e) => this.showLoginForm(e));
+    }
+
+    async checkAuth() {
+        try {
+            console.log('Checking authentication status...');
+            const response = await fetch(this.apiBase, {
+                method: 'GET',
+                credentials: 'same-origin'
+            });
+            
+            console.log('Auth check response status:', response.status);
+            
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Auth check data:', data);
+                
+                if (data.authenticated) {
+                    console.log('User is authenticated, redirecting to dashboard...');
+                    window.location.href = 'dashboard.html';
+                } else {
+                    console.log('User is not authenticated, staying on login page');
+                }
+            } else {
+                console.log('Auth check failed with status:', response.status);
+            }
+        } catch (error) {
+            console.error('Auth check failed:', error);
+        }
+    }
+
+    async handleLogin(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(e.target);
+        const credentials = {
+            action: 'login',
+            username: formData.get('username'),
+            password: formData.get('password')
+        };
+
+        console.log('Attempting login for user:', credentials.username);
+
+        try {
+            const response = await fetch(this.apiBase, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'same-origin',
+                body: JSON.stringify(credentials)
+            });
+
+            console.log('Login response status:', response.status);
+            const data = await response.json();
+            console.log('Login response data:', data);
+
+            if (data.success) {
+                this.showMessage('Login successful! Redirecting...', 'success');
+                console.log('Login successful, redirecting to dashboard...');
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 1000);
+            } else {
+                this.showMessage(data.error || 'Login failed', 'error');
+                console.error('Login failed:', data.error);
+            }
+        } catch (error) {
+            this.showMessage('Network error. Please try again.', 'error');
+            console.error('Login error:', error);
+        }
+    }
+
+    async handleRegister(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(e.target);
+        const userData = {
+            action: 'register',
+            username: formData.get('username'),
+            password: formData.get('password')
+        };
+
+        console.log('Attempting registration for user:', userData.username);
+
+        try {
+            const response = await fetch(this.apiBase, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'same-origin',
+                body: JSON.stringify(userData)
+            });
+
+            const data = await response.json();
+            console.log('Registration response:', data);
+
+            if (data.success) {
+                this.showMessage('Registration successful! You can now sign in.', 'success');
+                this.showLoginForm();
+                document.getElementById('registerForm').reset();
+            } else {
+                this.showMessage(data.error || 'Registration failed', 'error');
+            }
+        } catch (error) {
+            this.showMessage('Network error. Please try again.', 'error');
+            console.error('Registration error:', error);
+        }
+    }
+
+    showRegisterForm(e) {
+        e.preventDefault();
+        document.getElementById('loginForm').classList.add('hidden');
+        document.getElementById('registerForm').classList.remove('hidden');
+        document.querySelector('.login-header h1').textContent = 'Create Account';
+        document.querySelector('.login-header p').textContent = 'Register to start tracking your products';
+    }
+
+    showLoginForm(e) {
+        if (e) e.preventDefault();
+        document.getElementById('registerForm').classList.add('hidden');
+        document.getElementById('loginForm').classList.remove('hidden');
+        document.querySelector('.login-header h1').textContent = 'Pricing Tracker';
+        document.querySelector('.login-header p').textContent = 'Sign in to manage your products';
+    }
+
+    showMessage(text, type) {
+        const messageEl = document.getElementById('message');
+        messageEl.textContent = text;
+        messageEl.className = `message ${type}`;
+        messageEl.classList.remove('hidden');
+        
+        setTimeout(() => {
+            messageEl.classList.add('hidden');
+        }, 5000);
+    }
+}
+
+// Initialize authentication manager when page loads
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM loaded, initializing AuthManager...');
+    new AuthManager();
+});
+    </script>
+</body>
+</html>

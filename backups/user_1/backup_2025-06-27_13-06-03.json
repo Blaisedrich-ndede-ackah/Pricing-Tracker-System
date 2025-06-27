@@ -1,0 +1,75 @@
+{
+    "created_at": "2025-06-27 13:06:03",
+    "user_id": 1,
+    "data": {
+        "products": [
+            {
+                "id": 1,
+                "user_id": 1,
+                "vendor_id": 4,
+                "product_name": "KOFO",
+                "actual_price": "122.00",
+                "markup_percentage": "50.00",
+                "selling_price": "183.00",
+                "profit": "61.00",
+                "quantity": 30,
+                "total_profit": "1830.00",
+                "product_url": null,
+                "product_image": null,
+                "notes": null,
+                "date_added": "2025-06-26",
+                "status": "active",
+                "created_at": "2025-06-26 17:52:52",
+                "updated_at": "2025-06-26 17:58:08"
+            },
+            {
+                "id": 3,
+                "user_id": 1,
+                "vendor_id": 4,
+                "product_name": "yaa yaa",
+                "actual_price": "20.00",
+                "markup_percentage": "10.00",
+                "selling_price": "22.00",
+                "profit": "2.00",
+                "quantity": 20,
+                "total_profit": "40.00",
+                "product_url": null,
+                "product_image": null,
+                "notes": null,
+                "date_added": "2025-06-26",
+                "status": "active",
+                "created_at": "2025-06-26 18:15:27",
+                "updated_at": "2025-06-26 18:15:27"
+            },
+            {
+                "id": 4,
+                "user_id": 1,
+                "vendor_id": null,
+                "product_name": "jhsysh",
+                "actual_price": "333.00",
+                "markup_percentage": "50.00",
+                "selling_price": "499.50",
+                "profit": "166.50",
+                "quantity": 1,
+                "total_profit": "166.50",
+                "product_url": null,
+                "product_image": null,
+                "notes": null,
+                "date_added": "2025-06-26",
+                "status": "active",
+                "created_at": "2025-06-26 18:56:39",
+                "updated_at": "2025-06-26 18:56:39"
+            }
+        ],
+        "vendors": [
+            {
+                "id": 4,
+                "user_id": 1,
+                "vendor_name": "KOFI",
+                "contact_info": "0540428231",
+                "created_at": "2025-06-26 17:52:18"
+            }
+        ],
+        "sales": []
+    }
+}

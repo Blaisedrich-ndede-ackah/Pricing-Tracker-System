@@ -1,0 +1,30 @@
+[25-Jun-2025 15:39:21 Europe/Berlin] PHP Warning:  mkdir(): File exists in D:\xammp\htdocs\pricing-tracker\api\debug.php on line 15
+[25-Jun-2025 15:39:21 Europe/Berlin] PHP Warning:  mkdir(): File exists in D:\xammp\htdocs\pricing-tracker\api\debug.php on line 15
+[25-Jun-2025 15:39:21 Europe/Berlin] PHP Warning:  mkdir(): File exists in D:\xammp\htdocs\pricing-tracker\api\debug.php on line 15
+[25-Jun-2025 15:39:21 Europe/Berlin] Get products error: SQLSTATE[HY000]: General error: 1 no such column: p.quantity
+[25-Jun-2025 15:39:21 Europe/Berlin] Dashboard error: SQLSTATE[HY000]: General error: 1 no such column: quantity
+[25-Jun-2025 15:39:37 Europe/Berlin] Dashboard error: SQLSTATE[HY000]: General error: 1 no such column: quantity
+[25-Jun-2025 15:39:37 Europe/Berlin] Get products error: SQLSTATE[HY000]: General error: 1 no such column: p.quantity
+[25-Jun-2025 15:39:40 Europe/Berlin] Dashboard error: SQLSTATE[HY000]: General error: 1 no such column: quantity
+[25-Jun-2025 15:39:41 Europe/Berlin] Get products error: SQLSTATE[HY000]: General error: 1 no such column: p.quantity
+[25-Jun-2025 15:39:53 Europe/Berlin] Dashboard error: SQLSTATE[HY000]: General error: 1 no such column: quantity
+[25-Jun-2025 15:39:53 Europe/Berlin] Get products error: SQLSTATE[HY000]: General error: 1 no such column: p.quantity
+[25-Jun-2025 15:39:58 Europe/Berlin] Dashboard error: SQLSTATE[HY000]: General error: 1 no such column: quantity
+[25-Jun-2025 15:39:58 Europe/Berlin] Get products error: SQLSTATE[HY000]: General error: 1 no such column: p.quantity
+[25-Jun-2025 15:40:01 Europe/Berlin] Dashboard error: SQLSTATE[HY000]: General error: 1 no such column: quantity
+[25-Jun-2025 15:40:01 Europe/Berlin] Get products error: SQLSTATE[HY000]: General error: 1 no such column: p.quantity
+[25-Jun-2025 15:40:04 Europe/Berlin] Dashboard error: SQLSTATE[HY000]: General error: 1 no such column: quantity
+[25-Jun-2025 15:40:04 Europe/Berlin] Get products error: SQLSTATE[HY000]: General error: 1 no such column: p.quantity
+[25-Jun-2025 15:40:46 Europe/Berlin] Dashboard error: SQLSTATE[HY000]: General error: 1 no such column: quantity
+[25-Jun-2025 15:40:46 Europe/Berlin] Get products error: SQLSTATE[HY000]: General error: 1 no such column: p.quantity
+[25-Jun-2025 15:49:05 Europe/Berlin] Get products error: SQLSTATE[HY000]: General error: 1 no such column: p.quantity
+[25-Jun-2025 15:51:25 Europe/Berlin] Dashboard error: SQLSTATE[HY000]: General error: 1 no such column: quantity
+[25-Jun-2025 15:51:25 Europe/Berlin] Get products error: SQLSTATE[HY000]: General error: 1 no such column: p.quantity
+[25-Jun-2025 15:51:30 Europe/Berlin] Dashboard error: SQLSTATE[HY000]: General error: 1 no such column: quantity
+[25-Jun-2025 15:51:31 Europe/Berlin] Get products error: SQLSTATE[HY000]: General error: 1 no such column: p.quantity
+[25-Jun-2025 15:51:32 Europe/Berlin] Dashboard error: SQLSTATE[HY000]: General error: 1 no such column: quantity
+[25-Jun-2025 15:51:32 Europe/Berlin] Get products error: SQLSTATE[HY000]: General error: 1 no such column: p.quantity
+[25-Jun-2025 15:51:44 Europe/Berlin] Dashboard error: SQLSTATE[HY000]: General error: 1 no such column: quantity
+[25-Jun-2025 15:51:44 Europe/Berlin] Get products error: SQLSTATE[HY000]: General error: 1 no such column: p.quantity
+[25-Jun-2025 15:52:01 Europe/Berlin] Dashboard error: SQLSTATE[HY000]: General error: 1 no such column: quantity
+[25-Jun-2025 15:52:01 Europe/Berlin] Get products error: SQLSTATE[HY000]: General error: 1 no such column: p.quantity
